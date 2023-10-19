@@ -1,18 +1,16 @@
-package com.example.idconfirm;
+package homework.verify;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class IdVerifyHelper {
 
     public static void main(String[] args) {
-
-        // 讀檔
+        
         ArrayList<String> lines = new ArrayList<>();
-        String filePath = "/Users/maggie/Downloads/idList.txt";   // 檔案路徑
+        String filePath = "HW/src/homework/verify/idList.txt";   // 檔案路徑
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {

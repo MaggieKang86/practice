@@ -8,7 +8,8 @@ import java.util.ArrayList;
 public class IdVerifyHelper {
 
     public static void main(String[] args) {
-        
+        // .gitignore 要放在最外層
+        // 好我在push一次
         ArrayList<String> lines = new ArrayList<>();
         String filePath = "HW/src/homework/verify/idList.txt";   // 檔案路徑
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {

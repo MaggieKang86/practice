@@ -4,11 +4,17 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
-public class IdVerifyHelper {
+public class IdVerifyHelper2 {
 
     public static void main(String[] args) {
+
+        /*
+            1. 讀檔
+            2. 迴圈一行一行print
+            3. 一行一行驗證
+        */
+
 
         // 讀檔
         ArrayList<String> lines = new ArrayList<>();
@@ -24,6 +30,37 @@ public class IdVerifyHelper {
 
         String[] fileContent = lines.toArray(new String[0]);  // 將 ArrayList 轉換為 String[] fileContent 數組
 
+
+        // 迴圈一行一行print
+        for (String str : fileContent) {
+            System.out.println(str);
+        }
+
+        // 一行一行驗證
+        for (int i = 0; i < fileContent.length; i++) {
+            /*
+              1.抓出第一行的資料
+              2.計算
+              3.印出
+            */
+
+            // 抓出第 i 行的資料
+            String s = fileContent[i];
+            String[] fileDetail = s.split("");  //
+            // 計算
+
+            // 印出
+
+
+        }
+
+        // ============================================
+        // ============================================
+        // ============================================
+        // ============================================
+        // ============================================
+        // ============================================
+        /*
         for (int i = 0; i < fileContent.length; i++) {                 // 開始計算檔案內的每條數據
             String s = fileContent[i];                                 // 獲取 index i 的字串 s
             String[] fileDetail = s.split("");                   // 將 s 裝進 String[] fileDetail 中
@@ -101,8 +138,9 @@ public class IdVerifyHelper {
                 System.out.println("-----------------------\n");
             }
         }
-
-
+         */
     }
+
+
 }
 

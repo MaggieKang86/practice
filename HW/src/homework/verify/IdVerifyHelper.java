@@ -1,29 +1,36 @@
 package homework.verify;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class IdVerifyHelper {
 
-    public static void main(String[] args) {
-        String filePath = "HW/src/homework/verify/idList.txt";   // 檔案路徑
-        confirm(filePath);
-    }
-    // 那這一關就先到這邊 給你看看我寫的 你休息一下 明天再繼續第二關
-    // 好啊我順便去看一些其他小東西 TAT
-    // 我把我的程式碼貼到 IdverifyHelper2
-    // 好～～
-    // 我有寫兩版 一種是我一開始寫的 後面是我學到新特性 用在裡面的 我給你第一種就好了
-    // 好呀
-    // 好了 你push 你自己一版就好  2你不要push
-    // 那我push上去存起來哦！
-    public static void confirm(String filePath) {
-        ArrayList<String> lines = new ArrayList<>();
+    private String fileName;
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+    public IdVerifyHelper(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public List<VerifyResult> validate(String filename) {
+
+        List<VerifyResult> dataList = new ArrayList<>();
+
+        VerifyResult verifyResult = new VerifyResult();
+
+        ArrayList<String> lines = new ArrayList<>();
+        // 讀
+        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 lines.add(line);
@@ -38,7 +45,9 @@ public class IdVerifyHelper {
             String s = fileContent[i];                                 // 獲取 index i 的字串 s
             String[] fileDetail = s.split("");                   // 將 s 裝進 String[] fileDetail 中
 
+
             if (s.matches("[A-Za-z][0-9]{9}")) {
+
 
                 // 計算 w1 ============================================
 
@@ -103,21 +112,37 @@ public class IdVerifyHelper {
 
                 // 打印
                 if (w10Nb == numberOfRest[s.length() - 2]) {
-                    System.out.println("==== 您輸入的身分證字號 " + s + " ====");
-                    System.out.println("==== 驗證成功 ====");
-                    System.out.println("-----------------------\n");
+                    verifyResult.setVerifySuccess(true);
+                    verifyResult.setId(s);
+                    verifyResult.setMessage("驗證成功");
+//
+//                    System.out.println("==== 您輸入的身分證字號: " + s + " ====");
+//                    System.out.println("==== 驗證成功 ====");
+//                    System.out.println("-----------------------\n");
                 } else {
-                    System.out.println("==== 您輸入的身分證字號 " + s + " ====");
-                    System.out.println("==== 驗證失敗 ====");
-                    System.out.println("-----------------------\n");
+                    verifyResult.setVerifySuccess(false);
+                    verifyResult.setId(s);
+                    verifyResult.setMessage("驗證失敗");
+//
+//                    System.out.println("==== 您輸入的身分證字號: " + s + " ====");
+//                    System.out.println("==== 驗證失敗 ====");
+//                    System.out.println("-----------------------\n");
                 }
 
             } else {
-                System.out.println("==== 您輸入的身分證字號 " + s + " ====");
-                System.out.println("==== 驗證失敗 ====");
-                System.out.println("-----------------------\n");
+                verifyResult.setVerifySuccess(false);
+                verifyResult.setId(s);
+//                verifyResult.setMessage("驗證失敗");
+//                System.out.println("==== 您輸入的身分證字號: " + s + " ====");
+//                System.out.println("==== 驗證失敗 ====");
+//                System.out.println("-----------------------\n");
             }
         }
+
+        dataList.add(verifyResult);
+        return dataList;
     }
+
+
 }
 

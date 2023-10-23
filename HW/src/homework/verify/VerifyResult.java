@@ -1,7 +1,5 @@
 package homework.verify;
 
-import java.util.List;
-
 public class VerifyResult {
 
     private Boolean isVerifySuccess;

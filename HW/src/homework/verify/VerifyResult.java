@@ -1,5 +1,7 @@
 package homework.verify;
 
+import java.util.List;
+
 public class VerifyResult {
 
     private Boolean isVerifySuccess;
@@ -15,6 +17,14 @@ public class VerifyResult {
     public VerifyResult() {
     }
 
+    @Override
+    public String toString() {
+        return
+                "isVerifySuccess = " + isVerifySuccess + "\n" +
+                "id = " + id + "\n" +
+                "message = " + message + "\n" +
+                "-----------------------" + "\n";
+    }
 
     public Boolean getVerifySuccess() {
         return isVerifySuccess;

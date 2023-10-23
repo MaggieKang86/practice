@@ -3,34 +3,34 @@ package homework.verify;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
 public class IdVerifyHelper {
 
-    private String fileName;
+    //    private String fileName;
+    private String filePath;
 
-    public IdVerifyHelper(String fileName) {
-        this.fileName = fileName;
+    public IdVerifyHelper(String filePath) {
+        this.filePath = filePath;
     }
 
-    public String getFileName() {
-        return fileName;
+    public String getFilePath() {
+        return filePath;
     }
 
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
     }
 
-    public List<VerifyResult> validate(String filename) {
+    public List<VerifyResult> validate(String filePath) {
 
         List<VerifyResult> dataList = new ArrayList<>();
-
-        VerifyResult verifyResult = new VerifyResult();
-
         ArrayList<String> lines = new ArrayList<>();
+
         // 讀
-        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 lines.add(line);
@@ -42,15 +42,13 @@ public class IdVerifyHelper {
         String[] fileContent = lines.toArray(new String[0]);  // 將 ArrayList 轉換為 String[] fileContent 數組
 
         for (int i = 0; i < fileContent.length; i++) {                 // 開始計算檔案內的每條數據
+
             String s = fileContent[i];                                 // 獲取 index i 的字串 s
             String[] fileDetail = s.split("");                   // 將 s 裝進 String[] fileDetail 中
-
+            VerifyResult verifyResult = new VerifyResult();
 
             if (s.matches("[A-Za-z][0-9]{9}")) {
-
-
                 // 計算 w1 ============================================
-
                 int w1Nb = 0;
                 String[] Apb = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
 
@@ -89,7 +87,6 @@ public class IdVerifyHelper {
                 char secondNumber = w1NbStr.charAt(1);
 
                 // 計算 w2~9 ============================================
-
                 int w2To9sum = 0;
                 int[] numberOfRest = new int[s.length() - 1];              // 創建 int[] numberOfRest
                 for (int x = 0; x < numberOfRest.length; x++) {            // 將 fileDetail 中的字串轉換成整數並放進 numberOfRest
@@ -110,37 +107,28 @@ public class IdVerifyHelper {
                     w10Nb = 10 - y;
                 }
 
-                // 打印
                 if (w10Nb == numberOfRest[s.length() - 2]) {
                     verifyResult.setVerifySuccess(true);
                     verifyResult.setId(s);
                     verifyResult.setMessage("驗證成功");
-//
-//                    System.out.println("==== 您輸入的身分證字號: " + s + " ====");
-//                    System.out.println("==== 驗證成功 ====");
-//                    System.out.println("-----------------------\n");
                 } else {
                     verifyResult.setVerifySuccess(false);
                     verifyResult.setId(s);
                     verifyResult.setMessage("驗證失敗");
-//
-//                    System.out.println("==== 您輸入的身分證字號: " + s + " ====");
-//                    System.out.println("==== 驗證失敗 ====");
-//                    System.out.println("-----------------------\n");
                 }
 
             } else {
                 verifyResult.setVerifySuccess(false);
                 verifyResult.setId(s);
-//                verifyResult.setMessage("驗證失敗");
-//                System.out.println("==== 您輸入的身分證字號: " + s + " ====");
-//                System.out.println("==== 驗證失敗 ====");
-//                System.out.println("-----------------------\n");
+                verifyResult.setMessage("驗證失敗");
             }
+
+            dataList.add(verifyResult);
+
         }
 
-        dataList.add(verifyResult);
         return dataList;
+
     }
 
 
